@@ -45,17 +45,19 @@ public class WhatsappRepository {
         Group group=new Group(new String("Group "+this.customGroupCount), users.size());
         adminMap.put(group,users.get(0));
          groupUserMap.put(group,users);
-            groupMessageMap.put(group,new ArrayList<Message>());
-            return group;
+         groupMessageMap.put(group,new ArrayList<Message>());
+        return group;
     }
     public int createMessage(String content) {
         this.messageId+=1;
-        Message message=new Message(this.messageId,content);
+        Message message=new Message(messageId,content);
         return message.getId();
 
     }
     public int sendMessage(Message message, User sender, Group group) throws Exception{
-    
+     //Throw "Group does not exist" if the mentioned group does not exist
+        //Throw "You are not allowed to send message" if the sender is not a member of the group
+        //If the message is sent successfully, return the final number of messages in that group.
         if(adminMap.containsKey(group)){
             List<User> users=groupUserMap.get(group);
             Boolean userFound=false;
